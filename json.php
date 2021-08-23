@@ -1,5 +1,7 @@
 <?php
 
+
+
 init();
 
 function init()
@@ -28,7 +30,7 @@ function store(){
     $car["milage"] = $_POST["milage"];
     $car["fuel"] = $_POST["fuel"];
     $car["techinspection"] = $_POST["techinspection"];
-    
+    $car["status"] = "";
     
     $data[] = $car;
     setData($data);
@@ -81,5 +83,18 @@ function update(){
         }  
     }
 }
+
+function sell(){
+    $data = getData();
+    foreach ($data as $key => &$car){
+        if ($car['id'] == $_POST['id']){
+            $car['status'] = 0;
+            setData($data);
+
+            echo "hi";
+        }
+    }  
+}
+
 
 ?>

@@ -1,14 +1,16 @@
 <?php
 
-include("./json.php");
+include('./json.php');
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])){
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['id'])){
     session_start();
 
 }
 
-if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])){
+
+
+if($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['id'])){
     $car = edit();
 
 }
@@ -19,21 +21,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["id"])){
     die;
 }
 
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['status'])){
+    sell();
+    header("location:./");
+    die;
+
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["manufacturer"])){
     destroy();
     header("location:./");
     die; 
 }
-  
+
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])  ){
     update();
     header("location:./");
     die;
 }
 
-//  echo "<pre>";
-//  print_r($_SESSION);
-//  echo "</pre>";
+
+
+
+
+
+
 ?>
 
 
@@ -87,7 +99,7 @@ body {
 
 <body>
 
-<nav class="navbar navbar-dark bg-primary fixed-top">
+<nav class="navbar navbar-dark bg-primary">
     <div class="col-md-12 center">
         <h2 style="color:black;">
             CARS FOR SALE
@@ -157,11 +169,11 @@ body {
 
 
 
+            <?php 
 
-
-            <?php if(!isset($car)){
+            if(!isset($car)){
             echo '<button class="btn btn-primary" type="submit">Add Car</button>';
-            }else{
+            }else {
             echo '
             <input type="hidden" name="id" value="'. $car["id"].' ">
             <button class="btn btn-info" type="submit">Renew data of Your car</button>';
@@ -197,14 +209,15 @@ body {
         <th>Milage</th>
         <th>Fuel</th>
         <th>Technical inspection</th>
-        <th>Edit</th> 
-        <th>Sold</th> 
+        <th>Edit</th>
+        <th>Status</th>
+        <th>Delete</th> 
         </tr>
 
 
         <?php $count = 0; foreach (getData() as $car) {  ?>
             <tr>
-                <td> <?= ++$count ?> </td>
+                <td> <?= ++$count. "/". $car["id"] ?> </td>
                 <td> <?= $car["manufacturer"]  ?> </td>
                 <td> <?= $car["model"]  ?> </td>
                 <td> <?= $car["year"]  ?> </td>
@@ -212,12 +225,19 @@ body {
                 <td> <?= $car["milage"]  ?> </td>
                 <td> <?= $car["fuel"]  ?> </td>
                 <td> <?= $car["techinspection"]  ?> </td>
+        
 
-                <td><a class="btn btn-warning" href="?id=<?= $car["id"]  ?>">edit</a></td>
+                <td><a class="btn btn-warning" href="?id=<?= $car["id"]  ?>">Edit</a></td>
                 <td>
                     <form action="" method="post">
-                        <input type="hidden" name="id" value="<?=$car["id"]?>"  >
-                        <button class="btn btn-danger" type="submit">Sold</button>
+                        <input type="hidden" name="status" value="<?= $car['status'] ?>"  >
+                        <button class="btn btn-success" type="submit">Sold</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="" method="post">
+                        <input type="hidden" name="id" value="<?= $car["id"] ?>"  >
+                        <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>

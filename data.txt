@@ -1,1 +1,1 @@
-[{"id":4,"manufacturer":"","model":"","year":"","color":"","milage":"170000","fuel":"","techinspection":""},{"id":5,"manufacturer":"","model":"","year":"","color":"","milage":"","fuel":"gasoline","techinspection":""},{"id":6,"manufacturer":"","model":"","year":"","color":"","milage":"","fuel":"","techinspection":""},{"id":7,"manufacturer":"","model":"","year":"","color":"","milage":"","fuel":"","techinspection":"Yes"}]
+[]
